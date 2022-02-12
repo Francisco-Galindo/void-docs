@@ -14,11 +14,11 @@ chose a file system with TRIM support (ext4, Btrfs, F2FS, etc.). Note that F2FS
 requires kernel 4.19 or above to support TRIM.
 
 To run TRIM one-shot, you can run
-[`fstrim(8)`](https://man.voidlinux.org/fstrim.8) manually. For example, if your
-/ directory is on an SSD:
+[`fstrim(8)`](https://man.voidlinux.org/fstrim.8) manually. The `--fstab` flag
+will TRIM all the supported and mounted filesystems mentioned in `/etc/fstab`:
 
 ```
-# fstrim /
+# fstrim --fstab
 ```
 
 To automate running TRIM, use cron or add the `discard` option to `/etc/fstab`.
@@ -30,7 +30,7 @@ Add the following lines to `/etc/cron.weekly/fstrim`:
 ```
 #!/bin/sh
 
-fstrim /
+fstrim --fstab
 ```
 
 Finally, make the script executable:
